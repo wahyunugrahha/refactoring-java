@@ -1,42 +1,34 @@
 package solidddd;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-class BookRepository implements CRUD<Book> {
-    private List<Book> books;
+public class BookRepository implements CRUD<Book> {
+    private final Map<Integer, Book> books;
 
     public BookRepository() {
-        this.books = new ArrayList<>();
+        this.books = new HashMap<>();
     }
 
     @Override
     public void create(Book obj) {
-        books.add(obj);
+        books.put(obj.getId(), obj);
     }
 
     @Override
     public Book read(int id) {
-        for (Book book : books) {
-            if (book.getId() == id) {
-                return book;
-            }
-        }
-        return null;
+        return books.get(id);
     }
 
     @Override
     public void update(int id, Book obj) {
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getId() == id) {
-                books.set(i, obj);
-                return;
-            }
+        if (books.containsKey(id)) {
+            books.put(id, obj);
         }
     }
 
     @Override
     public void delete(int id) {
-        books.removeIf(book -> book.getId() == id);
+        books.remove(id);
     }
 }

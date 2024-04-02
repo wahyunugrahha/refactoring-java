@@ -1,14 +1,15 @@
 package solidddd;
 
-class BookController {
-    private BookRepository repository;
+public class BookController {
+    private final BookRepository repository;
 
     public BookController(BookRepository repository) {
         this.repository = repository;
     }
 
     public void addBook(int id, String title, String author) {
-        repository.create(new Book(id, title, author));
+        Book newBook = new Book(id, title, author);
+        repository.create(newBook);
     }
 
     public Book findBook(int id) {
@@ -16,11 +17,11 @@ class BookController {
     }
 
     public void updateBook(int id, String title, String author) {
-        Book book = repository.read(id);
-        if (book != null) {
-            book.setTitle(title);
-            book.setAuthor(author);
-            repository.update(id, book);
+        Book existingBook = repository.read(id);
+        if (existingBook != null) {
+            existingBook.setTitle(title);
+            existingBook.setAuthor(author);
+            repository.update(id, existingBook);
         }
     }
 

@@ -1,7 +1,6 @@
 package solidddd;
-
-class Book {
-    private int id;
+public class Book {
+    private final int id;
     private String title;
     private String author;
 
@@ -19,12 +18,12 @@ class Book {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public void setAuthor(String author) {
